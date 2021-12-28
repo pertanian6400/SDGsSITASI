@@ -14,7 +14,7 @@
 #   Test Package:              'Ctrl + Shift + T'
 
 hello <- function() {
-  print("Hello, world!")
+  print("Hai")
 }
 
 SDGs231 <- function(datasitasi){
@@ -200,25 +200,20 @@ SDGs231 <- function(datasitasi){
 
 
   # Custom table ===============
-
-
-  library(data.table)
-  df<-data.table(datasitasi$sdg231,group=datasitasi$katSSP)
-  df <- na.omit(df)
-  df
-  data_group<-df[,lapply(.SD, mean), by=group]
-  colnames(data_group)[2] <- "SDGs231"
-  for (i in nrow(data_group)){
-    data_group
-  }
-  data_group
-
+  SSP <- subset(datasitasi, datasitasi$katSSP==1)
+  NonSSP <- subset(datasitasi, datasitasi$katSSP==0)
+  hasil_231 <- matrix(c("SSP", "NonSSP", mean(SSP$sdg231, na.rm = T), mean(NonSSP$sdg231, na.rm = T)), ncol=2, nrow=2)
+  hasil_231 <- as.data.frame(hasil_231)
+  colnames(hasil_231) <- c("Kategori", "Mean SDGs 231")
+  hasil_231
 
   # ===========
   library('openxlsx')
   library('rio')
-  export(data_group,"Hasil_231.xlsx")
   export(datasitasi,"Data_231.xlsx")
+  export(hasil_231,"Hasil_231.xlsx")
+
+  hasil_231
 
 }
 
@@ -461,12 +456,13 @@ SDGs241 <- function(data_241, Data_R554, Data_R559, Data_R567, Data_R572, Data_R
   #Membuat grafik hasil akhir
   library('ggplot2')
   par(xpd=T, mar=par()$mar+c(0,0,0,3))
+  pdf(file="Plot241.pdf")
   barplot(as.matrix(Hasil_Persen[,-1]), border="white",
           col = c("red","yellow","green"), main = "Stacked Barplot: Indikator 241",
           ylab = " Persentase (%)", xlab = "Sub-indikator",
           legend.text = Hasil_Persen$Kategori,
           args.legend = list(title="Kategori",x="topright",inset=c(-0.20,0)), beside=FALSE)
-
+  dev.off()
   #Export Tabel Hasil_Persen
   library('openxlsx')
   library('rio')
@@ -499,18 +495,25 @@ SDGs232 <- function(Data_232){
 
   Data_232 <- cbind(Data_232, rev_tanaman, rev_ternak, rev_ikan, rev_hutan, rev_all, cost_tanaman, cost_ternak, cost_ikan, cost_hutan, cost_allkor, cost_alleko, pendapatan, incomeppp)
 
-  library(data.table)
-  df<-data.table(Data_232$incomeppp, group=Data_232$Status)
-  df <- na.omit(df)
-  data_group<-df[,lapply(.SD, mean), by=group]
-  colnames(data_group)[2] <- "IncomePPP"
+
+  SSP <- subset(Data_232, Data_232$Status=="SSP")
+  NonSSP <- subset(Data_232, Data_232$Status=="NON SSP")
+  SSP.weighted <- svymean(~SSP$incomeppp, design = svydesign(ids = ~0, weights = SSP$FK, data = SSP))
+  NonSSP.weighted <- svymean(~NonSSP$incomeppp, design = svydesign(ids = ~0, weights = NonSSP$FK, data = NonSSP))
+
+  hasil_232 <- matrix(c("SSP", "NonSSP", as.data.frame(SSP.weighted)$mean, as.data.frame(NonSSP.weighted)$mean), ncol=2, nrow=2)
+  hasil_232 <- as.data.frame(hasil_232)
+  colnames(hasil_232) <- c("Kategori", "MeanSDGs232")
+  hasil_232
+
+  print("============belum dengan weight=================")
 
 
   #Export Tabel Hasil_Persen
   library('openxlsx')
   library('rio')
-  export(data_group,"Hasil_232.xlsx")
+  export(hasil_232,"Hasil_232.xlsx")
   export(Data_232,"Data_232.xlsx")
 
-  data_group
+  hasil_232
 }
