@@ -213,6 +213,8 @@ SDGs231 <- function(datasitasi){
   export(datasitasi,"Data_231.xlsx")
   export(hasil_231,"Hasil_231.xlsx")
 
+  print("============Data telah diexport=================")
+
   hasil_231
 
 }
@@ -468,6 +470,8 @@ SDGs241 <- function(data_241, Data_R554, Data_R559, Data_R567, Data_R572, Data_R
   library('rio')
   export(Hasil_Persen,"Hasil_241.xlsx")
 
+  print("============Data telah diexport=================")
+
   Hasil_Persen
 }
 
@@ -506,7 +510,7 @@ SDGs232 <- function(Data_232){
   colnames(hasil_232) <- c("Kategori", "MeanSDGs232")
   hasil_232
 
-  print("============belum dengan weight=================")
+  print("============Data telah diexport=================")
 
 
   #Export Tabel Hasil_Persen

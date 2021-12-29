@@ -1,11 +1,10 @@
 Package: SDGsSITASI
 Type: Package
-Title: What the Package Does (Title Case)
+Title: SDGs Pertanian
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Author: Muhammad Abdul Majid
+Maintainer: Fungsi Produksi BPS Provinsi Kalimantan Timur <produksi6400@bps.go.id>
+Description: Menghitung Indikator SDGs Pertanian hasil SITASI.
 License: What license is it under?
 Encoding: UTF-8
 LazyData: true
