@@ -13,8 +13,16 @@
 #   Check Package:             'Ctrl + Shift + E'
 #   Test Package:              'Ctrl + Shift + T'
 
-hello <- function() {
-  print("Hai")
+Bantuan <- function() {
+  print("Selamat datang di Package SDGs Pertanian")
+  print("==========================================")
+  print("Package ini dapat menghitung 3 Indikator:")
+  print("")
+  print("1. Indikator 2.3.1 dengan fungsi SDGs231(datasitasi)")
+  print("2. Indikator 2.3.2 dengan fungsi SDGs232(Data_232)")
+  print("3. Indikator 2.4.1 dengan fungsi SDGs241(data_241, Data_R554, Data_R559, Data_R567, Data_R572, Data_R574, Tabel_Konversi, Tabel_UMP)")
+  print("")
+  print("Semoga dapat membantu")
 }
 
 SDGs231 <- function(datasitasi){
